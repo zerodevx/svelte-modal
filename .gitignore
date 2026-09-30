@@ -1,9 +1,11 @@
 node_modules
-temp
+/temp
 
 # Output
 .output
 .vercel
+.netlify
+.wrangler
 /.svelte-kit
 /build
 /dist
@@ -21,3 +23,6 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Playwright
+test-results

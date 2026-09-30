@@ -1,7 +1,7 @@
 <script>
-import '../app.css'
+import './layout.css'
+
+const { children } = $props()
 </script>
 
-<slot></slot>
-
-<style></style>
+{@render children()}
