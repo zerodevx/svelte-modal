@@ -22,16 +22,17 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.63.0",
-    "@sveltejs/adapter-static": "^3.0.10",
-    "@sveltejs/kit": "^2.70.3",
+    "@sveltejs/adapter-static": "^4.0.0",
+    "@sveltejs/kit": "^3.0.0",
     "@sveltejs/package": "^2.5.8",
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@tailwindcss/vite": "^4.3.3",
-    "@types/node": "^24.19.0",
+    "@types/node": "^24.19.1",
+    "daisyui": "^5.7.47",
     "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.23.0",
-    "globals": "^17.12.0",
+    "globals": "^17.13.0",
     "prettier": "^3.9.9",
     "prettier-plugin-svelte": "^4.1.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
@@ -39,7 +40,7 @@
     "svelte-check": "^4.7.6",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3",
-    "vite": "^8.3.1"
+    "vite": "^8.3.2"
   },
   "type": "module",
   "exports": {
@@ -48,15 +49,19 @@
       "svelte": "./dist/index.js"
     }
   },
+  "imports": {
+    "#lib": "./src/lib/index.js",
+    "#lib/*": "./src/lib/*"
+  },
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "sideEffects": [
-    "**/*.css"
-  ],
   "files": [
     "dist",
     "!dist/**/*.test.*",
     "!dist/**/*.spec.*"
+  ],
+  "sideEffects": [
+    "**/*.css"
   ],
   "allowScripts": {
     "fsevents": true
