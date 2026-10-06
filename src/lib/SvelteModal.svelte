@@ -42,7 +42,7 @@ let resolve = null
 
 /** @param {MouseEvent} e */
 function onclick(e) {
-  if (!blocking && e.target === ref) close()
+  if (!blocking && ref && !e.composedPath().includes(ref)) close()
 }
 
 /** @param {Event} e */
@@ -76,8 +76,8 @@ export function close(val = '') {
 </script>
 
 <dialog
-  class={klass || '_modal'}
   {id}
+  class={klass}
   closedby={blocking ? 'none' : 'any'}
   bind:this={ref}
   {@attach attach}
@@ -90,7 +90,7 @@ export function close(val = '') {
 </dialog>
 
 <style>
-._modal {
+dialog {
   margin: auto;
 }
 </style>
