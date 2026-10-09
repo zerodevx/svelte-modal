@@ -3,7 +3,7 @@ import adapter from '@sveltejs/adapter-static'
 import { sveltekit } from '@sveltejs/kit/vite'
 import { defineConfig } from 'vite'
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     tailwindcss(),
     sveltekit({
@@ -12,7 +12,10 @@ export default defineConfig({
       },
       adapter: adapter({
         fallback: '404.html'
-      })
+      }),
+      paths: {
+        base: mode === 'development' ? '' : '/svelte-modal'
+      }
     })
   ]
-})
+}))
