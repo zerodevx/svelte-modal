@@ -25,7 +25,8 @@ export default defineConfig([
     // 'svelte/button-has-type': 'error'
     rules: {
       'no-tabs': 'error',
-      'no-unexpected-multiline': 'error'
+      'no-unexpected-multiline': 'error',
+      'no-useless-escape': 'off'
     }
   }
 ])
