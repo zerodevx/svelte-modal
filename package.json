@@ -1,6 +1,6 @@
 {
   "name": "@zerodevx/svelte-modal",
-  "version": "0.1.0",
+  "version": "0.1.0-next.1",
   "description": "Svelte modals done right",
   "author": "Jason Lee <jason@zerodevx.com>",
   "scripts": {
@@ -11,42 +11,54 @@
     "prepack": "svelte-kit sync && svelte-package && npx publint",
     "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
-    "lint": "prettier --check . && eslint .",
+    "lint": "prettier --check . && npm run check && eslint",
     "format": "prettier --write .",
-    "test:e2e": "playwright install && playwright test",
-    "test": "npm run test:e2e"
+    "deploy": "npx gh-pages -d build -v .DS_Store -t -f",
+    "test": "playwright test"
   },
   "peerDependencies": {
+    "@sveltejs/kit": "^3.0.0",
     "svelte": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@sveltejs/kit": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@playwright/test": "^1.63.0",
+    "@neoconfetti/svelte": "^2.2.2",
+    "@playwright/test": "^1.64.0",
     "@sveltejs/adapter-static": "^4.0.0",
-    "@sveltejs/kit": "^3.0.0",
-    "@sveltejs/package": "^2.5.8",
+    "@sveltejs/kit": "^3.0.1",
+    "@sveltejs/package": "^3.0.0",
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^24.19.1",
     "daisyui": "^5.7.47",
-    "eslint": "^10.11.0",
+    "eslint": "^10.12.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-svelte": "^3.23.0",
+    "eslint-plugin-svelte": "^3.23.1",
     "globals": "^17.13.0",
     "prettier": "^3.9.9",
     "prettier-plugin-svelte": "^4.1.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "svelte": "^5.57.1",
+    "svelte": "^5.57.2",
     "svelte-check": "^4.7.6",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3",
-    "vite": "^8.3.2"
+    "vite": "^8.3.4"
   },
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js"
+    },
+    "./kit": {
+      "types": "./dist/kit.svelte.d.ts",
+      "svelte": "./dist/kit.svelte.js"
     }
   },
   "imports": {
@@ -71,8 +83,8 @@
   "homepage": "https://zerodevx.github.io/svelte-modal/",
   "keywords": [
     "svelte",
-    "vanillajs",
+    "sveltekit",
     "modal",
-    "dialogs"
+    "dialog"
   ]
 }
