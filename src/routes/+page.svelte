@@ -15,11 +15,6 @@ async function pop() {
   await sleep(3500)
   can = false
 }
-
-async function onclick() {
-  const option = await modals[5].show()
-  if (option === 'yes') pop()
-}
 </script>
 
 <div class="mx-auto prose mt-8 mb-24 px-6 sm:px-0">
@@ -79,7 +74,13 @@ async function onclick() {
   </p>
   <pre><code>{codes[5]}</code></pre>
   <div class="flex justify-end">
-    <button class="btn btn-primary" {onclick}>Show modal</button>
+    <button
+      class="btn btn-primary"
+      onclick={async () => {
+        const option = await modals[5].show()
+        if (option === 'yes') pop()
+      }}>Show modal</button
+    >
   </div>
 
   <h3>5. Blocking modals</h3>
