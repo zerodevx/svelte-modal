@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="text-scale" content="scale" />
+    <link href="./_app/immutable/entry/start.B7znNinc.js" rel="modulepreload">
+		<link href="./_app/immutable/entry/payload.DSmR2FwN.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/CRzLMJPS.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/CtDIs2G7.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/DECGXcnb.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/FmJf6ndg.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/DZ8khFjK.js" rel="modulepreload">
+		<link href="./_app/immutable/entry/app.BNbLS2zi.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/0.BmQRlL-y.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/2.DnDMVAcj.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/DMpo9ofl.js" rel="modulepreload">
+		
+		<link href="./_app/immutable/assets/0.BeAiDeSo.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/2.CWixwl90.css" rel="stylesheet">
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents"><!--[--><!--[--><!--[0--><!--[--><!--[--><!--[-1--><!--[--><div class="mx-auto prose mt-8 mb-24 px-6 sm:px-0 svelte-1uha8ag"><h1 class="svelte-1uha8ag">svelte-modal</h1> <span class="badge font-mono badge-sm badge-secondary svelte-1uha8ag">v0.1.0</span> <blockquote class="svelte-1uha8ag">Svelte modals done right.</blockquote> <h2 class="svelte-1uha8ag">Installation</h2> <pre class="svelte-1uha8ag"><code class="svelte-1uha8ag">npm i @zerodevx/svelte-modal</code></pre> <h2 class="svelte-1uha8ag">Examples</h2> <h3 class="svelte-1uha8ag">1. Basic usage</h3> <p class="svelte-1uha8ag">Modals ship unstyled.</p> <pre class="svelte-1uha8ag"><code class="svelte-1uha8ag">&lt;script>
+  import { SvelteModal } from '@zerodevx/svelte-modal'  
+  let modal
+&lt;/script>
+
+&lt;button onclick={() => modal.show()}>Show modal&lt;/button>
+
+&lt;SvelteModal bind:this={modal}>
+  &lt;h1>Hello world!&lt;/h1>
+  &lt;p>ESC or clicking backdrop closes the modal.&lt;/p>
+&lt;/SvelteModal>
+</code></pre> <div class="flex justify-end svelte-1uha8ag"><button class="btn btn-primary svelte-1uha8ag">Show modal</button></div> <h3 class="svelte-1uha8ag">2. Styling</h3> <p class="svelte-1uha8ag">Just use classes.</p> <div class="tabs tabs-border svelte-1uha8ag"><input type="radio" name="css_tabs" class="tab svelte-1uha8ag" aria-label="Vanilla"/> <div class="tab-content svelte-1uha8ag"><pre class="max-h-108 svelte-1uha8ag"><code class="svelte-1uha8ag">&lt;script>
+  import { SvelteModal } from '@zerodevx/svelte-modal'  
+  let modal
+&lt;/script>
+
+&lt;button onclick={() => modal.show()}>Show modal&lt;/button>
+
+&lt;SvelteModal bind:this={modal} class="my-modal">
+  &lt;h1>Hello world!&lt;/h1>
+  &lt;p>ESC or clicking backdrop closes the modal.&lt;/p>
+&lt;/SvelteModal>
+
+&lt;style>
+  .my-modal {
+    padding: 2rem;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 28rem;
+    width: 90%;
+    opacity: 0;
+    transform: scale(0.9);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease,
+      overlay 0.3s ease allow-discrete,
+      display 0.3s ease allow-discrete;
+    h1 {
+      font-size: 1.125rem;
+      font-weight: 700;
+    }
+    &amp;[open] {
+      opacity: 1;
+      transform: scale(1);
+    }
+    &amp;::backdrop {
+      background-color: rgba(0, 0, 0, 0);
+      backdrop-filter: blur(0px);
+      transition:
+        background-color 0.3s ease,
+        backdrop-filter 0.3s ease,
+        overlay 0.3s ease allow-discrete,
+        display 0.3s ease allow-discrete;
+    }
+    &amp;[open]::backdrop {
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+    }
+    @starting-style {
+      &amp;[open] {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      &amp;[open]::backdrop {
+        background-color: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(0px);
+      }
+    }
+  }
+&lt;/style>
+</code></pre> <div class="flex justify-end svelte-1uha8ag"><button class="btn btn-primary svelte-1uha8ag">Show modal</button></div></div> <input type="radio" name="css_tabs" class="tab svelte-1uha8ag" aria-label="Tailwind CSS" checked=""/> <div class="tab-content svelte-1uha8ag"><pre class="svelte-1uha8ag"><code class="svelte-1uha8ag">&lt;script>
+  import { SvelteModal } from '@zerodevx/svelte-modal'  
+  let modal
+&lt;/script>
+
+&lt;button onclick={() => modal.show()}>Show modal&lt;/button>
+
+&lt;SvelteModal
+  bind:this={modal}
+  class="w-9/10 max-w-md scale-95 rounded-lg border-none p-8 opacity-0 shadow-2xl transition-all transition-discrete duration-300 ease-out backdrop:bg-black/0 backdrop:backdrop-blur-none backdrop:transition-all backdrop:transition-discrete backdrop:duration-300 backdrop:ease-out open:scale-100 open:opacity-100 open:backdrop:bg-black/50 open:backdrop:backdrop-blur-xs starting:open:scale-95 starting:open:opacity-0 starting:open:backdrop:bg-black/0 starting:open:backdrop:backdrop-blur-none"
+>
+  &lt;h1 class="text-lg font-bold">Hello world!&lt;/h1>
+  &lt;p>ESC or clicking backdrop closes the modal.&lt;/p>
+&lt;/SvelteModal>
+</code></pre> <div class="flex justify-end svelte-1uha8ag"><button class="btn btn-primary svelte-1uha8ag">Show modal</button></div></div> <input type="radio" name="css_tabs" class="tab svelte-1uha8ag" aria-label="DaisyUI"/> <div class="tab-content svelte-1uha8ag"><pre class="svelte-1uha8ag"><code class="svelte-1uha8ag">&lt;script>
+  import { SvelteModal } from '@zerodevx/svelte-modal'  
+  let modal
+&lt;/script>
+
+&lt;button onclick={() => modal.show()}>Show modal&lt;/button>
+
+&lt;SvelteModal bind:this={modal} class="modal">
+  &lt;div class="modal-box">
+    &lt;h3 class="text-lg font-bold">Hello world!&lt;/h3>
+    &lt;p>ESC or clicking backdrop closes the modal.&lt;/p>
+  &lt;/div>
+  &lt;form method="dialog" class="modal-backdrop">
+    &lt;button>close&lt;/button>
+  &lt;/form>  
+&lt;/SvelteModal>
+</code></pre> <div class="flex justify-end svelte-1uha8ag"><button class="btn btn-primary svelte-1uha8ag">Show modal</button></div></div></div> <h3 class="svelte-1uha8ag">3. Enhanced state</h3> <p class="svelte-1uha8ag">If you're using SvelteKit, use the <code class="svelte-1uha8ag">enhancedState</code> attachment to let the browser's back
+    button close the modal.</p> <pre class="svelte-1uha8ag"><code class="svelte-1uha8ag">&lt;script>
+  import { SvelteModal } from '@zerodevx/svelte-modal'  
+  import { enhancedState } from '@zerodevx/svelte-modal/kit' 
+  let modal
+&lt;/script>
+
+&lt;button onclick={() => modal.show()}>Show modal&lt;/button>
+
+&lt;SvelteModal bind:this={modal} class="tw" attach={enhancedState}>
+  &lt;div class="prose">
+    &lt;h3>Hello world!&lt;/h3>
+    &lt;p>ESC, backdrop click, and the back button closes the modal.&lt;/p>
+  &lt;/div>
+&lt;/SvelteModal>
+</code></pre> <div class="flex justify-end svelte-1uha8ag"><button class="btn btn-primary svelte-1uha8ag">Show modal</button></div> <h3 class="svelte-1uha8ag">4. Idiomatic code</h3> <p class="svelte-1uha8ag"><code class="svelte-1uha8ag">show()</code> returns a promise that resolves to the dialog's <code class="svelte-1uha8ag">returnValue</code> when closed. Programatically calling <code class="svelte-1uha8ag">close(returnValue: string)</code> works too.</p> <pre class="svelte-1uha8ag"><code class="svelte-1uha8ag">&lt;script>
+  import { SvelteModal } from '@zerodevx/svelte-modal'  
+  import { enhancedState as attach } from '@zerodevx/svelte-modal/kit' 
+
+  let modal
+  async function onclick() {
+    const option = await modal.show()
+    if (option === 'yes') confetti()
+  }
+&lt;/script>
+
+&lt;button {onclick}>Show modal&lt;/button>
+
+&lt;SvelteModal bind:this={modal} class="tw prose" {attach}>
+  &lt;h3>Are cats the cutest pets?&lt;/h3>
+  &lt;p>(They really are.) ESC, backdrop click, navigation back, and Cancel button cancels the modal.&lt;/p>
+  &lt;form method="dialog" class="flex justify-end">
+    &lt;button class="btn mr-4">Cancel&lt;/button>
+    &lt;button class="btn btn-primary" value="yes">Yes, absolutely&lt;/button>
+  &lt;/form>
+&lt;/SvelteModal>
+</code></pre> <div class="flex justify-end svelte-1uha8ag"><button class="btn btn-primary svelte-1uha8ag">Show modal</button></div> <h3 class="svelte-1uha8ag">5. Blocking modals</h3> <p class="svelte-1uha8ag">Assert the <code class="svelte-1uha8ag">blocking</code> prop to prevent cancellation by ESC, backdrop click, or the back
+    button (best effort).</p> <pre class="svelte-1uha8ag"><code class="svelte-1uha8ag">&lt;script>
+  import { SvelteModal } from '@zerodevx/svelte-modal'  
+  import { enhancedState as attach } from '@zerodevx/svelte-modal/kit'
+  let modal
+&lt;/script>
+
+&lt;button onclick={() => modal.show()}>Show modal&lt;/button>
+ 
+&lt;SvelteModal bind:this={modal} class="tw prose" {attach} blocking>
+  &lt;h3>You can't close me!&lt;/h3>
+  &lt;p>ESC, backdrop click, and the back button won't close the modal.&lt;/p>
+  &lt;button class="btn float-end" onclick={() => modal.close()}>Escape hatch&lt;/button>
+&lt;/SvelteModal>
+</code></pre> <div class="flex justify-end svelte-1uha8ag"><button class="btn btn-primary svelte-1uha8ag">Show modal</button></div> <h3 class="svelte-1uha8ag">6. Declarative use</h3> <p class="svelte-1uha8ag">You can also declaratively control the modal by dispatching commands.</p> <pre class="svelte-1uha8ag"><code class="svelte-1uha8ag">&lt;script>
+  import { SvelteModal } from '@zerodevx/svelte-modal'  
+  import { enhancedState as attach } from '@zerodevx/svelte-modal/kit'
+&lt;/script>
+
+&lt;button commandfor="my-modal" command="show-modal">Show modal&lt;/button>
+
+&lt;SvelteModal class="tw prose" {attach} id="my-modal">
+  &lt;h3>Opened with invoker command&lt;/h3>
+  &lt;p>ESC, backdrop click, and the back button also closes the modal.&lt;/p>
+  &lt;button commandfor="my-modal" command="close">Ok, got it&lt;/button>
+&lt;/SvelteModal>
+</code></pre> <div class="flex justify-end svelte-1uha8ag"><button class="btn btn-primary svelte-1uha8ag" commandfor="modal-7" command="show-modal">Show modal</button></div></div> <footer class="flex h-48 w-full items-center justify-center bg-neutral text-neutral-content svelte-1uha8ag"><p class="text-sm svelte-1uha8ag">♥ <a class="link svelte-1uha8ag" href="mailto:jason@zerodevx.com">jason@zerodevx.com</a></p></footer> <!--[-1--><!--]--> <dialog class="svelte-142tmrn" closedby="any"><h1 class="svelte-1uha8ag">Hello world!</h1> <p class="svelte-1uha8ag">ESC or clicking backdrop closes the modal.</p><!----></dialog><!----> <dialog class="my-modal svelte-142tmrn" closedby="any"><h1 class="svelte-1uha8ag">Hello world!</h1> <p class="svelte-1uha8ag">ESC or clicking backdrop closes the modal.</p><!----></dialog><!----> <dialog class="w-9/10 max-w-md scale-95 rounded-lg border-none p-8 opacity-0 shadow-2xl transition-all transition-discrete duration-300 ease-out backdrop:bg-black/0 backdrop:backdrop-blur-none backdrop:transition-all backdrop:transition-discrete backdrop:duration-300 backdrop:ease-out open:scale-100 open:opacity-100 open:backdrop:bg-black/50 open:backdrop:backdrop-blur-xs starting:open:scale-95 starting:open:opacity-0 starting:open:backdrop:bg-black/0 starting:open:backdrop:backdrop-blur-none svelte-142tmrn" closedby="any"><div class="svelte-1uha8ag"><h1 class="text-lg font-bold svelte-1uha8ag">Hello world!</h1> <p class="svelte-1uha8ag">ESC or clicking backdrop closes the modal.</p></div><!----></dialog><!----> <dialog class="modal svelte-142tmrn" closedby="any"><div class="modal-box svelte-1uha8ag"><h3 class="text-lg font-bold svelte-1uha8ag">Hello world!</h3> <p class="svelte-1uha8ag">ESC or clicking backdrop closes the modal.</p></div> <form method="dialog" class="modal-backdrop svelte-1uha8ag"><button value="cancel" class="svelte-1uha8ag">cancel</button></form><!----></dialog><!----> <dialog class="tw svelte-142tmrn" closedby="any"><div class="prose svelte-1uha8ag"><h3 class="svelte-1uha8ag">Hello world!</h3> <p class="svelte-1uha8ag">ESC, backdrop click, and the back button closes the modal.</p></div><!----></dialog><!----> <dialog class="tw prose svelte-142tmrn" closedby="any"><h3 class="svelte-1uha8ag">Are cats the cutest pets?</h3> <p class="svelte-1uha8ag">(They really are.) ESC, backdrop click, navigation back, and Cancel button cancels the modal.</p> <form method="dialog" class="flex justify-end svelte-1uha8ag"><button class="btn mr-4 svelte-1uha8ag">Cancel</button> <button class="btn btn-primary svelte-1uha8ag" value="yes">Yes, absolutely</button></form><!----></dialog><!----> <dialog class="tw prose svelte-142tmrn" closedby="none" blocking=""><h3 class="svelte-1uha8ag">You can't close me!</h3> <p class="svelte-1uha8ag">ESC, backdrop click, and the back button won't close the modal.</p> <button class="btn float-end svelte-1uha8ag">Escape hatch</button><!----></dialog><!----> <dialog id="modal-7" class="tw prose backdrop:cursor-pointer svelte-142tmrn" closedby="any"><h3 class="svelte-1uha8ag">Opened with invoker command</h3> <p class="svelte-1uha8ag">ESC, backdrop click, and the back button also closes the modal.</p> <button class="btn float-end svelte-1uha8ag" commandfor="modal-7" command="close">OK, got it</button><!----></dialog><!----><!--]--><!--]--><!--]--><!----><!--]--><!--]--><!--]--><!----> <!--[-1--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_1vzi1g = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						version: "0.1.0",
+						assets: "/svelte-modal"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					import("./_app/immutable/entry/start.B7znNinc.js").then(async (kit) => {
+						kit.init(__sveltekit_1vzi1g);
+						const app = await import("./_app/immutable/entry/app.BNbLS2zi.js");
+						kit.start(app, element, {
+							node_ids: [0, 2],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>
