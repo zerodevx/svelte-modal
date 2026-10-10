@@ -2,6 +2,7 @@
 import { SvelteModal } from '#lib'
 import { enhancedState as attach } from '#lib/kit.svelte.js'
 import codes from './codes.js'
+import { version } from '$app/env'
 import { confetti } from '@neoconfetti/svelte'
 
 /** @type {import('#lib').SvelteModal[]} */
@@ -19,6 +20,7 @@ async function pop() {
 
 <div class="mx-auto prose mt-8 mb-24 px-6 sm:px-0">
   <h1>svelte-modal</h1>
+  <span class="badge font-mono badge-sm badge-secondary">v{version}</span>
   <blockquote>Svelte modals done right.</blockquote>
   <h2>Installation</h2>
   <pre><code>npm i @zerodevx/svelte-modal</code></pre>

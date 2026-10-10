@@ -2,6 +2,9 @@ import tailwindcss from '@tailwindcss/vite'
 import adapter from '@sveltejs/adapter-static'
 import { sveltekit } from '@sveltejs/kit/vite'
 import { defineConfig } from 'vite'
+import { readFileSync } from 'node:fs'
+
+const { version: name } = JSON.parse(readFileSync(new URL('package.json', import.meta.url), 'utf8'))
 
 export default defineConfig(({ mode }) => ({
   plugins: [
@@ -15,7 +18,8 @@ export default defineConfig(({ mode }) => ({
       }),
       paths: {
         base: mode === 'development' ? '' : '/svelte-modal'
-      }
+      },
+      version: { name }
     })
   ]
 }))
