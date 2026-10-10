@@ -2,41 +2,28 @@
 
 > Svelte modals done right.
 
-A modern, lightweight modal dialog component for **Svelte 5** powered by the native HTML `<dialog>`
-element in very little lines of code.
+A modern, lightweight modal component for **Svelte 5** powered by the native HTML `<dialog>` element
+in very little lines of code.
 
 [Live Demo](https://zerodevx.github.io/svelte-modal/)
 
----
+## Featuring
 
-## Highlights
+- **Native `<dialog>`** — Top-layer stacking, focus management, backdrop, and ESC handling.
+- **Svelte 5 native** — Built with runes, snippets, and attachments.
+- **Promise-based API** — `modal.show()` resolves with the dialog's return value.
+- **SvelteKit integration** — Browser Back button closes the modal via `enhancedState`.
+- **Unstyled by default** — Bring your own CSS, Tailwind CSS, or DaisyUI.
+- **Blocking mode** — Prevent dismissal via backdrop, ESC, or browser Back.
+- **HTML Invoker Commands** — Open and close modals declaratively, without JavaScript handlers.
 
-- ⚡ **Native `<dialog>` underneath** — Built-in top-layer stacking, focus management, native
-  backdrop, and keyboard accessibility (`ESC` to close).
-- 🪄 **Svelte 5 native** — Designed from the ground up for Svelte 5 runes, snippets, and
-  attachments.
-- 🤝 **Async / Promise-based** — `modal.show()` returns a `Promise<string>` that resolves when
-  closed with the dialog's return value.
-- 🔙 **SvelteKit back-button integration** — Ships with an `enhancedState` attachment so the
-  browser's Back button closes the modal instead of navigating away.
-- 🎨 **Completely unstyled** — Zero bundled CSS opinions. Easily style with vanilla CSS, Tailwind
-  CSS, or DaisyUI, with smooth entry/exit animations via `@starting-style`.
-- 🔒 **Blocking mode** — Disable closing on backdrop click, `ESC`, or browser back button when
-  confirmation or critical action is required.
-- 🏷️ **Declarative invokers** — Works natively with HTML Invoker Commands (`commandfor` /
-  `command`).
-
----
-
-## Installation
+## Install
 
 ```bash
 npm i @zerodevx/svelte-modal
 ```
 
-> **Note**: Requires `svelte >= 5.0.0`.
-
----
+Requires Svelte 5 or later.
 
 ## Quick Start
 
@@ -44,6 +31,7 @@ npm i @zerodevx/svelte-modal
 <script>
 import { SvelteModal } from '@zerodevx/svelte-modal'
 
+/** @type {import('@zerodevx/svelte-modal').SvelteModal} */
 let modal
 </script>
 
@@ -51,39 +39,33 @@ let modal
 
 <SvelteModal bind:this={modal}>
   <h2>Hello World!</h2>
-  <p>Press ESC or click backdrop to close.</p>
+  <p>Press ESC or click the backdrop to close.</p>
 </SvelteModal>
 ```
 
----
+## Usage
 
-## Usage & Examples
+### Idiomatic handling
 
-### 1. Promise-Based Return Values
-
-`modal.show()` returns a Promise that resolves with the dialog's `returnValue`. You can set this
-value programmatically via `modal.close(value)` or natively using `<button value="...">` inside a
-`<form method="dialog">`.
+`modal.show()` returns a promise that resolves with the dialog's `returnValue`. Set it using
+`modal.close(value)` or natively using `<button value="...">` inside a `<form method="dialog">`.
 
 ```svelte
 <script>
 import { SvelteModal } from '@zerodevx/svelte-modal'
 
 let modal
-
-async function handleConfirm() {
-  const result = await modal.show()
-  if (result === 'confirm') {
-    console.log('User confirmed!')
+async function confirm() {
+  if ((await modal.show()) === 'confirm') {
+    console.log('Confirmed!')
   }
 }
 </script>
 
-<button onclick={handleConfirm}>Open Confirmation</button>
+<button onclick={confirm}>Delete item</button>
 
 <SvelteModal bind:this={modal}>
   <h3>Are you sure?</h3>
-  <p>This action cannot be undone.</p>
   <form method="dialog">
     <button value="cancel">Cancel</button>
     <button value="confirm">Confirm</button>
@@ -91,22 +73,14 @@ async function handleConfirm() {
 </SvelteModal>
 ```
 
----
+### SvelteKit Back button
 
-### 2. SvelteKit History Integration (`enhancedState`)
+Import `enhancedState` from the Kit subpath to synchronize modal visibility with SvelteKit's shallow
+navigation state.
 
-In single-page applications, users expect the browser's **Back** button to dismiss an open modal
-rather than navigating back to the previous page.
-
-With the `enhancedState` attachment, `@zerodevx/svelte-modal` synchronizes with SvelteKit's shallow
-page state.
-
-#### 1. Setup `app.d.ts` (TypeScript / JSDoc)
-
-Add `showModal` to `App.PageState`:
+Add the state to `src/app.d.ts`:
 
 ```ts
-// src/app.d.ts
 declare global {
   namespace App {
     interface PageState {
@@ -114,191 +88,102 @@ declare global {
     }
   }
 }
+
 export {}
 ```
 
-#### 2. Attach to `<SvelteModal>`
+Then attach it to the modal:
 
 ```svelte
 <script>
 import { SvelteModal } from '@zerodevx/svelte-modal'
-import { enhancedState as attach } from '@zerodevx/svelte-modal/kit'
+import { enhancedState } from '@zerodevx/svelte-modal/kit'
 
 let modal
 </script>
 
 <button onclick={() => modal.show()}>Open Modal</button>
 
-<SvelteModal bind:this={modal} {attach}>
-  <h3>SvelteKit Enhanced Modal</h3>
-  <p>Pressing the browser's Back button will close this modal smoothly.</p>
+<SvelteModal bind:this={modal} attach={enhancedState}>
+  <h3>SvelteKit Modal</h3>
+  <p>Press Back to dismiss the modal.</p>
 </SvelteModal>
 ```
 
----
+### Styling and animations
 
-### 3. Styling & Animations
-
-Because `<SvelteModal>` renders a native `<dialog>`, you can leverage modern CSS transitions,
-including `@starting-style` and `transition-discrete` for seamless entry/exit animations.
-
-#### Vanilla CSS
+`<SvelteModal>` renders a native `<dialog>` and accepts a `class` prop. Style it with regular CSS or
+Tailwind CSS. Modern CSS features such as `@starting-style` and `transition-discrete` enable entry
+and exit animations.
 
 ```svelte
-<script>
-import { SvelteModal } from '@zerodevx/svelte-modal'
-let modal
-</script>
-
-<button onclick={() => modal.show()}>Open Modal</button>
-
-<SvelteModal bind:this={modal} class="my-modal">
-  <h3>Animated Dialog</h3>
-  <p>Smooth open/close transition.</p>
+<SvelteModal bind:this={modal} class="modal">
+  <h3>Animated Modal</h3>
 </SvelteModal>
+```
 
-<style>
-.my-modal {
-  padding: 2rem;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  max-width: 28rem;
-  width: 90%;
-  opacity: 0;
-  transform: scale(0.9);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease,
-    overlay 0.3s ease allow-discrete,
-    display 0.3s ease allow-discrete;
-
-  &[open] {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  &::backdrop {
-    background-color: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(0px);
-    transition:
-      background-color 0.3s ease,
-      backdrop-filter 0.3s ease,
-      overlay 0.3s ease allow-discrete,
-      display 0.3s ease allow-discrete;
-  }
-
-  &[open]::backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-  }
-
-  @starting-style {
-    &[open] {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    &[open]::backdrop {
-      background-color: rgba(0, 0, 0, 0);
-      backdrop-filter: blur(0px);
-    }
-  }
+```css
+/* layout.css */
+body:has(dialog[open]) {
+  @apply touch-none scrollbar-gutter-auto overflow-y-hidden;
 }
-</style>
+.modal {
+  @apply w-9/10 max-w-md rounded-lg border-none p-8 shadow-xl transition-all transition-discrete duration-300 open:scale-100 open:opacity-100 starting:open:scale-95 starting:open:opacity-0;
+}
 ```
 
-#### Tailwind CSS (v4)
+### Blocking modals
+
+Set `blocking` to prevent dismissal through backdrop clicks, ESC, or browser Back (best effort).
+Provide an explicit way to close the modal.
 
 ```svelte
-<SvelteModal
-  bind:this={modal}
-  class="w-9/10 max-w-md scale-95 rounded-lg border-none p-8 opacity-0 shadow-2xl transition-all transition-discrete duration-300 ease-out backdrop:bg-black/0 backdrop:backdrop-blur-none backdrop:transition-all backdrop:transition-discrete backdrop:duration-300 backdrop:ease-out open:scale-100 open:opacity-100 open:backdrop:bg-black/50 open:backdrop:backdrop-blur-xs starting:open:scale-95 starting:open:opacity-0 starting:open:backdrop:bg-black/0 starting:open:backdrop:backdrop-blur-none"
->
-  <h3>Tailwind Modal</h3>
-  <p>Fully animated with Tailwind utilities.</p>
-</SvelteModal>
-```
-
----
-
-### 4. Blocking Modals
-
-Setting `blocking={true}` prevents the user from closing the dialog by clicking the backdrop,
-pressing `ESC`, or pressing the browser back button (best effort).
-
-```svelte
-<script>
-import { SvelteModal } from '@zerodevx/svelte-modal'
-let modal
-</script>
-
-<button onclick={() => modal.show()}>Open Blocking Modal</button>
-
-<SvelteModal bind:this={modal} blocking>
+<SvelteModal bind:this={modal} {attach} blocking>
   <h3>Action Required</h3>
-  <p>You must click the escape hatch button to close.</p>
-  <button onclick={() => modal.close()}>Escape Hatch</button>
+  <button onclick={() => modal.close()}>Continue</button>
 </SvelteModal>
 ```
 
----
+### HTML Invoker Commands
 
-### 5. Declarative HTML Invoker Commands
-
-HTML Invoker Commands allow buttons to trigger actions on target elements without JavaScript click
-listeners:
+Use native HTML Invoker Commands to control modals without JavaScript click handlers.
 
 ```svelte
-<script>
-import { SvelteModal } from '@zerodevx/svelte-modal'
-</script>
-
-<button commandfor="my-modal" command="show-modal">Show Modal</button>
+<button commandfor="my-modal" command="show-modal">Open</button>
 
 <SvelteModal id="my-modal">
-  <h3>Declarative Invoker Modal</h3>
-  <p>Opened without a click handler!</p>
+  <p>Declarative modal</p>
   <button commandfor="my-modal" command="close">Close</button>
 </SvelteModal>
 ```
 
----
-
 ## API Reference
 
-### `<SvelteModal>` Props
+### `<SvelteModal>` props
 
-| Prop       | Type                | Default     | Description                                                                      |
-| :--------- | :------------------ | :---------- | :------------------------------------------------------------------------------- |
-| `id`       | `string`            | `undefined` | The `id` attribute applied to the `<dialog>` element.                            |
-| `class`    | `string`            | `''`        | CSS class names applied to the `<dialog>` element.                               |
-| `blocking` | `boolean`           | `false`     | When `true`, disables closing via backdrop click, `ESC`, or browser Back button. |
-| `attach`   | `Attachment`        | `() => {}`  | Svelte 5 attachment function (e.g. `enhancedState`).                             |
-| `ref`      | `HTMLDialogElement` | `undefined` | Bindable reference to the underlying `<dialog>` element (`bind:ref`).            |
-| `children` | `Snippet`           | —           | Content rendered inside the dialog.                                              |
+| Prop       | Type                | Default     | Description                                            |
+| ---------- | ------------------- | ----------- | ------------------------------------------------------ |
+| `id`       | `string`            | `undefined` | ID of the underlying `<dialog>`.                       |
+| `class`    | `string`            | `''`        | CSS classes applied to the dialog.                     |
+| `blocking` | `boolean`           | `false`     | Prevents dismissal via backdrop, ESC, or browser Back. |
+| `attach`   | `Attachment`        | No-op       | Svelte 5 attachment function.                          |
+| `ref`      | `HTMLDialogElement` | `undefined` | Bindable reference to the underlying dialog.           |
 
-### Component Methods
+### Methods
 
-Access methods via `bind:this`:
+Access methods with `bind:this`:
 
-```svelte
-<SvelteModal bind:this={modal} />
-```
+| Method        | Signature                | Description                                                     |
+| ------------- | ------------------------ | --------------------------------------------------------------- |
+| `show()`      | `() => Promise<string>`  | Opens the modal and resolves with its return value when closed. |
+| `close(val?)` | `(val?: string) => void` | Closes the modal with an optional return value.                 |
 
-| Method    | Signature                | Description                                                                                               |
-| :-------- | :----------------------- | :-------------------------------------------------------------------------------------------------------- |
-| `show()`  | `() => Promise<string>`  | Opens the modal as a modal dialog and returns a promise that resolves with the `returnValue` when closed. |
-| `close()` | `(val?: string) => void` | Closes the modal with an optional `returnValue`.                                                          |
+### Subpath exports
 
-### Subpath Exports
+**`@zerodevx/svelte-modal/kit`**
 
-#### `@zerodevx/svelte-modal/kit`
-
-- **`enhancedState(el: HTMLDialogElement)`**: Svelte 5 attachment (`attach={enhancedState}`) that
-  synchronizes `<dialog>` visibility with SvelteKit shallow navigation state, allowing the browser's
-  Back button to close the modal.
-
----
+- `enhancedState(el: HTMLDialogElement)` — Svelte 5 attachment that synchronizes dialog visibility
+  with SvelteKit shallow navigation state, allowing browser Back to close the modal.
 
 ## License
 
