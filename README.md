@@ -122,13 +122,17 @@ and exit animations.
 </SvelteModal>
 ```
 
+Recommended Tailwind classes:
+
 ```css
 /* layout.css */
-body:has(dialog[open]) {
+body:has(.modal[open]) {
   @apply touch-none scrollbar-gutter-auto overflow-y-hidden;
 }
+
 .modal {
-  @apply w-9/10 max-w-md rounded-lg border-none p-8 shadow-xl transition-all transition-discrete duration-300 open:scale-100 open:opacity-100 starting:open:scale-95 starting:open:opacity-0;
+  @apply max-h-4/5 w-9/10 max-w-lg scale-95 overscroll-contain rounded-lg border-none p-8 opacity-0 shadow-2xl backdrop:bg-black/0 backdrop:backdrop-blur-none not-[[blocking]]:backdrop:cursor-pointer open:scale-100 open:opacity-100 open:backdrop:bg-black/50 open:backdrop:backdrop-blur-xs focus-visible:outline-none;
+  @apply transition-all transition-discrete duration-300 ease-out backdrop:transition-all backdrop:transition-discrete backdrop:duration-300 backdrop:ease-out starting:open:scale-95 starting:open:opacity-0 starting:open:backdrop:bg-black/0 starting:open:backdrop:backdrop-blur-none;
 }
 ```
 
