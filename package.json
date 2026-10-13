@@ -13,7 +13,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
     "lint": "prettier --check . && npm run check && eslint",
     "format": "prettier --write .",
-    "deploy": "npx gh-pages -d build -v .DS_Store -t -f",
+    "deploy": "npx oneclickpush -d build -f",
     "test": "playwright test"
   },
   "peerDependencies": {
